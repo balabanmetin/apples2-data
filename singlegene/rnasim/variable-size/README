@@ -1,0 +1,9 @@
+# begin by running 
+
+
+`scripts/gen-replicates.sh`
+
+This will generate replicates (backbone tree alignments)
+
+prerequisites:
+	-Linux and bash.
