@@ -34,23 +34,22 @@ for i in 0 1 2 3 4; do
 	done | cut -f1 | sed "s/$/\t$j/g" > data/200000/$i/diversity_scores.txt
 	cut -f1 data/200000/$i/diversity_scores.txt > data/200000/$i/queries.txt
 	# create backboe and query alignment and backbone tree for 200000 subset
-	bin/faSomeRecords rnasim-source/aln_dna.fa data/200000/$i/queries.txt > data/200000/$i/query.fa
-	bin/faSomeRecords -exclude rnasim-source/aln_dna.fa data/200000/$i/queries.txt > data/200000/$i/ref.fa
+	bin/faSomeRecords rnasim-source/aln_dna.fa data/200000/$i/queries.txt  data/200000/$i/query.fa
+	bin/faSomeRecords -exclude rnasim-source/aln_dna.fa data/200000/$i/queries.txt  data/200000/$i/ref.fa
 	cp rnasim-source/true_topo.tree data/200000/$i/true_topo.tree
 done 
 
 # use same queries accross replicates with same id
 for j in 0 1 2 3 4; do
-	
+	# shuffle backbone sequences using rep. id as seed
+	# save it temporarily.
+	grep ">" data/200000/$j/ref.fa | sed "s/^.//g" | sort --random-source=<(get_seeded_random $j) -R > tmp/refids.${j}
 	for i in 500 1000 5000 10000 50000 100000 ; do
                 cp data/200000/$j/queries.txt data/$i/$j
 		cp data/200000/$j/query.fa data/$i/$j
+		# use top $i ids in refid to subsample 200K alignment
+		faSomeRecords data/200000/$j/ref.fa <( head -n $i tmp/refids.${j}) data/$i/$j/ref.fa
+		# prune true with 200K species to $i + 200  species
+		nw_prune -v data/200000/$j/true_topo.tree `(cat data/200000/$j/queries.txt; head -n $i tmp/refids.${j})` > data/$i/$j/true_topo.tree
         done
 done
-
-# create backboe and query alignment and backbone tree for 200000 subset
-
-
-
-
-
