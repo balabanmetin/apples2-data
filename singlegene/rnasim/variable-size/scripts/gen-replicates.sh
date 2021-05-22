@@ -48,8 +48,8 @@ for j in 0 1 2 3 4; do
                 cp data/200000/$j/queries.txt data/$i/$j
 		cp data/200000/$j/query.fa data/$i/$j
 		# use top $i ids in refid to subsample 200K alignment
-		faSomeRecords data/200000/$j/ref.fa <( head -n $i tmp/refids.${j}) data/$i/$j/ref.fa
+		bin/faSomeRecords data/200000/$j/ref.fa <( head -n $i tmp/refids.${j}) data/$i/$j/ref.fa
 		# prune true with 200K species to $i + 200  species
-		nw_prune -v data/200000/$j/true_topo.tree `(cat data/200000/$j/queries.txt; head -n $i tmp/refids.${j})` > data/$i/$j/true_topo.tree
+		bin/nw_prune -v data/200000/$j/true_topo.tree `(cat data/200000/$j/queries.txt; head -n $i tmp/refids.${j})` > data/$i/$j/true_topo.tree
         done
 done
