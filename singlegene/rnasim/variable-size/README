@@ -5,12 +5,30 @@ prerequisites:
 	-Linux, bash, and anaconda (miniconda).
 
 how to execute:
+Execute the commands below with the given order. A brief explanation
+of each command is given below itself.
 
+------------------------
 `scripts/gen-replicates.sh`
 
-This will generate replicates (backbone tree alignments)
+This will generate replicates (backbone and query alignments). This procedure 
+will select 200 query sequences in 5 replicates and subsample an alignment
+with 200,000 sequences down to 500, 1000, 5000, 10000, 50000, and 100000.
 
+-------------------------
 `scripts/prep_jobs.sh`
 
-This will create jobs to prepare for leave one out tests
+This will create a list of jobs. Each line is a job that infers a backbone tree 
+using FastTree and creates reference packages for apples-2 and pplacer. To run
+jobs locally (instead of distributing to a HPC, you can run 
+`scripts/prep_jobs.sh | bash`
+
+-------------------------
+`scripts/place_jobs.sh`
+
+This will create a list oj jobs. Each line is a job that perform placements on
+a dataset with a certaion backbone size and certain replicate number using 
+one of the following softwares: apples-2, apples, pplacer, epa-ng. The job will
+report running time as well as delta error for each query placement. The measurement
+will be written to data/<size>/<replicate no>/<toolname>/result.csv
 
