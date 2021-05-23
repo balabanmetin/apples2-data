@@ -63,4 +63,7 @@ else
 	source activate rnasimvs
 	conda activate rnasimvs
 	pip install apples==2.0.2 taxtastic==0.9.1
+	# fetch apples-1 release and extract
+	wget https://github.com/balabanmetin/apples/archive/refs/tags/v1.2.0.tar.gz -P tmp
+	tar -zxvf tmp/v1.2.0.tar.gz
 fi
