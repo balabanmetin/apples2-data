@@ -1,9 +1,16 @@
 # begin by running 
 
 
+prerequisites:
+	-Linux, bash, and anaconda (miniconda).
+
+how to execute:
+
 `scripts/gen-replicates.sh`
 
 This will generate replicates (backbone tree alignments)
 
-prerequisites:
-	-Linux and bash.
+`scripts/prep_jobs.sh`
+
+This will create jobs to prepare for leave one out tests
+
