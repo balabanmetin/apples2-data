@@ -53,3 +53,14 @@ for j in 0 1 2 3 4; do
 		bin/nw_prune -v data/200000/$j/true_topo.tree `(cat data/200000/$j/queries.txt; head -n $i tmp/refids.${j})` > data/$i/$j/true_topo.tree
         done
 done
+
+
+# create a conda environment including the tools benchmarked.
+if conda info --envs | grep "rnasimvs" > /dev/null; then 
+	echo "conda environment rnasimvs exists"
+else
+	conda create -y -c bioconda --name rnasimvs python=3.7 epa-ng=0.3.8 pip pplacer=1.1.alpha19 fasttree=2.1.10
+	source activate rnasimvs
+	conda activate rnasimvs
+	pip install apples==2.0.2 taxtastic==0.9.1
+fi
