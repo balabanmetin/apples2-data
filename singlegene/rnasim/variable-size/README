@@ -12,8 +12,9 @@ of each command is given below itself.
 `scripts/gen-replicates.sh`
 
 This will generate replicates (backbone and query alignments). This procedure 
-will select 200 query sequences in 5 replicates and subsample an alignment
-with 200,000 sequences down to 500, 1000, 5000, 10000, 50000, and 100000.
+will select 200 query sequences per 5 replicates and create backbone alignements by 
+subsampling an alignment with 200,000 sequences down to 500, 1000, 5000, 10000, 
+50000, and 100000. 
 
 -------------------------
 `scripts/prep_jobs.sh`
@@ -27,8 +28,10 @@ jobs locally (instead of distributing to a HPC, you can run
 `scripts/place_jobs.sh`
 
 This will create a list oj jobs. Each line is a job that perform placements on
-a dataset with a certaion backbone size and certain replicate number using 
+a dataset with a certain backbone size and certain replicate number using 
 one of the following softwares: apples-2, apples, pplacer, epa-ng. The job will
 report running time as well as delta error for each query placement. The measurement
 will be written to data/<size>/<replicate no>/<toolname>/result.csv
+Again, this can be locally run :
+`scripts/place_jobs.sh | bash`
 
