@@ -8,6 +8,9 @@ CORES=1
 source activate rnasimvs
 conda activate rnasimvs
 
+PROJ_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )"
+pushd $PROJ_DIR
+
 if [ "$1" == "apples2" ]; then
 	mkdir -p $dir/$1
 	run_apples.py -h > /dev/null
@@ -34,3 +37,4 @@ fi
 echo "Placement is completed. starting error measurement..."
 scripts/measure.sh $dir $1
 
+popd
