@@ -8,6 +8,23 @@ get_seeded_random()
     </dev/zero 2>/dev/null
 }
 
+
+# create a conda environment including the tools benchmarked.
+if conda info --envs | grep "rnasimvs" > /dev/null; then 
+	echo "conda environment rnasimvs exists"
+else
+	conda create -y -c bioconda --name rnasimvs python=3.7 epa-ng=0.3.8 pip pplacer=1.1.alpha19 fasttree=2.1.10 gappa=0.7.1 newick_utils=1.6
+	source activate rnasimvs
+	conda activate rnasimvs
+	pip install apples==2.0.2 taxtastic==0.9.1
+	# fetch apples-1 release and extract
+	wget https://github.com/balabanmetin/apples/archive/refs/tags/v1.2.0.tar.gz -P tmp
+	tar -zxvf tmp/v1.2.0.tar.gz
+fi
+
+source activate rnasimvs
+conda activate rnasimvs
+
 # create replicate directories
 mkdir -p data 
 
@@ -20,7 +37,7 @@ done
 mkdir -p tmp
 # compute novelty for each sequence
 
-bin/nw_distance -m p -s f -n  rnasim-source/true_topo.tree | sort -k2n > tmp/diversity.txt
+nw_distance -m p -s f -n  rnasim-source/true_topo.tree | sort -k2n > tmp/diversity.txt
 pushd tmp
 # this will create 20 quartiles with suffix 00 .. 19
 split --lines=10000 -d diversity.txt diversity.
@@ -50,20 +67,7 @@ for j in 0 1 2 3 4; do
 		# use top $i ids in refid to subsample 200K alignment
 		bin/faSomeRecords data/200000/$j/ref.fa <( head -n $i tmp/refids.${j}) data/$i/$j/ref.fa
 		# prune true with 200K species to $i + 200  species
-		bin/nw_prune -v data/200000/$j/true_topo.tree `(cat data/200000/$j/queries.txt; head -n $i tmp/refids.${j})` > data/$i/$j/true_topo.tree
+		nw_prune -v data/200000/$j/true_topo.tree `(cat data/200000/$j/queries.txt; head -n $i tmp/refids.${j})` > data/$i/$j/true_topo.tree
         done
 done
 
-
-# create a conda environment including the tools benchmarked.
-if conda info --envs | grep "rnasimvs" > /dev/null; then 
-	echo "conda environment rnasimvs exists"
-else
-	conda create -y -c bioconda --name rnasimvs python=3.7 epa-ng=0.3.8 pip pplacer=1.1.alpha19 fasttree=2.1.10
-	source activate rnasimvs
-	conda activate rnasimvs
-	pip install apples==2.0.2 taxtastic==0.9.1
-	# fetch apples-1 release and extract
-	wget https://github.com/balabanmetin/apples/archive/refs/tags/v1.2.0.tar.gz -P tmp
-	tar -zxvf tmp/v1.2.0.tar.gz
-fi

@@ -5,8 +5,11 @@
 export dir=$1
 export bbone=${dir}/backbone_ml.fasttree
 
+source activate rnasimvs
+conda activate rnasimvs 
+
 # convert jplace to newick in order to calculate RF distance.
-bin/gappa examine graft --jplace-path ${dir}/$2/result.jplace --allow-file-overwriting --out-dir ${dir}/$2 > ${dir}/$2/gappa.out 2> ${dir}/$2/gappa.err
+gappa examine graft --jplace-path ${dir}/$2/result.jplace --allow-file-overwriting --out-dir ${dir}/$2 > ${dir}/$2/gappa.out 2> ${dir}/$2/gappa.err
 export plcd=${dir}/$2/result.newick
 export metname=$2
 
@@ -14,7 +17,7 @@ export leaves=`mktemp -t leavesXXXXXX.txt`
 export queries=${dir}/queries.txt
 export truetopo=${dir}/true_topo.tree
 
-bin/nw_labels -I $bbone > $leaves
+nw_labels -I $bbone > $leaves
 
 printf "" > ${dir}/${metname}/result.csv
 
@@ -29,7 +32,7 @@ f() {
 	# the placement tree
         if [ -s $tmp ]
         then
-            paste -s -d ' ' $tmp | xargs bin/nw_prune $plcd > $simptr
+            paste -s -d ' ' $tmp | xargs nw_prune $plcd > $simptr
             #mapfile -t < $tmp
             #nw_prune -v $plcd "${MAPFILE[@]}" > $simptr
         else
