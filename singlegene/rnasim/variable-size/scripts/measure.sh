@@ -6,7 +6,8 @@ export dir=$1
 export bbone=${dir}/backbone_ml.fasttree
 
 source activate rnasimvs
-conda activate rnasimvs 
+conda activate rnasimvs
+
 
 # convert jplace to newick in order to calculate RF distance.
 gappa examine graft --jplace-path ${dir}/$2/result.jplace --allow-file-overwriting --out-dir ${dir}/$2 > ${dir}/$2/gappa.out 2> ${dir}/$2/gappa.err

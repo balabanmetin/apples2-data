@@ -50,4 +50,4 @@ for i in 50 381; do
 	cp queries.txt data/$i/
 done 
 
-mkdir -p query_aln
+mkdir -p query_align
