@@ -34,3 +34,7 @@ report running time as well as delta error for each query placement. The measure
 will be written to data/<size>/result.csv
 Again, this can be locally run: `scripts/place_jobs.sh | bash`
 
+-------------------------
+`scripts/collect_results.sh`
+
+This scripts will create a csv file called `results.csv` which reports the placement error for each query. In `results.csv` file, the fields are error, query genome, scaffold id (unused field for assembly), number of marker genes (marker gene occupancy) in eqch query, number of marker genes in the backbone, and the datatype (assembly).
