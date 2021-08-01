@@ -21,10 +21,17 @@ python scripts/dedupe.py $TMP $dir/concat_dedup.fa $dir/dupmap.txt
 #
 rm $TMP
 #
+TMP=`mktemp -t XXXXXXX.fa`
+cat faa/*.faa | grep ">" | sed "s/^.//g" | sort | uniq > $TMP
+
+bin/faSomeRecords $dir/concat_dedup.fa  $TMP $dir/query.fa
+bin/faSomeRecords -exclude $dir/concat_dedup.fa $TMP $dir/ref.fa
+rm $TMP
+
 cp queries.txt $dir
 cp astral.lpp.nwk $dir
-bin/faSomeRecords $dir/concat_dedup.fa  $dir/queries.txt $dir/query.fa
-bin/faSomeRecords -exclude $dir/concat_dedup.fa $dir/queries.txt $dir/ref.fa
+#bin/faSomeRecords $dir/concat_dedup.fa  $dir/queries.txt $dir/query.fa
+#bin/faSomeRecords -exclude $dir/concat_dedup.fa $dir/queries.txt $dir/ref.fa
 scripts/reestimate_backbone.sh $dir
 #
 

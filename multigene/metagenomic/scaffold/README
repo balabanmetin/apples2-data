@@ -1,0 +1,38 @@
+# begin by running 
+
+prerequisites:
+	-Linux, bash, and anaconda (miniconda).
+
+how to execute:
+Execute the commands below with the given order. A brief explanation
+of each command is given below itself.
+
+------------------------
+`scripts/gen-replicates.sh`
+
+This will create the conda environment, download and install required software, generate replicates (in this case, there is only one replicate). 
+
+IMPORTANT NOTE: If you have not run "assembly" workflow and have not download the backbone alignments , go ahead and download backbone alignments using the following link:
+https://drive.google.com/file/d/10Nmt5_0CidSWOGrqxFlC_cqOArRI3o07/view?usp=sharing
+
+Make sure that after extracting the archive, "alignments" directory is located  under same directory as this readme file.
+
+If you already completed this step before, alignments directory should be already linked to the downloaded dataset.
+
+-------------------------
+`scripts/align.sh`
+
+This will create a list of jobs. Each line is a job that aligns query 
+marker genes onto backbone alignment using UPP. There is 381 marker genes. 
+To run jobs locally (instead of distributing to a HPC, you can run 
+`scripts/align.sh | bash`
+
+-------------------------
+`scripts/place_jobs.sh`
+
+This will create a list of jobs. Each line is a job that perform placements on
+a dataset with a certain number of marker genes (only 381) using apples-2. The job will
+report running time as well as delta error for each query placement. The measurement
+will be written to data/<size>/result.csv
+Again, this can be locally run: `scripts/place_jobs.sh | bash`
+
