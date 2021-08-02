@@ -1,0 +1,36 @@
+This is Web of Life (WoL) dataset.
+
+Download the dataset and scripts using the following google drive link:
+
+https://drive.google.com/file/d/1pNkJvcOth9IdNIjew5k_z4wzsp8gr_Sp/view?usp=sharing
+
+
+prerequisites:
+        -Linux, bash, and anaconda (miniconda).
+
+how to execute:
+Execute the commands below with the given order. A brief explanation
+of each command is given below itself.
+
+------------------------
+`scripts/create_backbone_alignment.sh 50`
+
+This will create the concatenated MSA of best 50 marker genes in WoL dataset. Backbone and reference sequences in the leave-k-out experiments are retrieved from these concatenated alignment.
+
+------------------------
+`scripts/generate_replicates.sh`
+
+This scripts will select query and backbone species at random and create 10 replicates. Backbone sizes vary as 1000, 3000, and 9000. Datatypes are nucleotide (nuc3), protein (prot) and nucleotide first and second codon position (nuc). Query species are always the same for the same replicate number regardless of the backbone size or datatype. Species in the smaller backbone are always a subset of the larger backbone. For example, for a fixed replicate (say 1), all species in backbone with 1000 species are present in  the backbone with 3000 species.
+
+------------------------
+`scripts/place_a_replicate.sh
+
+This will create a list of jobs. Each line is a job that perform placements on
+a dataset with a certain backbone size and certain replicate number using
+one of the following softwares: apples-2, apples, apples2-prot, apples2-bme. The job will
+report running time as well as delta error for each query placement. The measurement
+will be written to <datatype>/<replicate no>/<backbone size>/<toolname>/result_result.csv
+These jobs can be locally run :
+`scripts/place_a_replicate.sh | bash`
+
+
