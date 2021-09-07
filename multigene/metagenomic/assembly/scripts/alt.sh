@@ -24,6 +24,9 @@ rm $TMP
 cp queries.txt $dir
 cp astral.lpp.nwk $dir
 bin/faSomeRecords $dir/concat_dedup.fa  $dir/queries.txt $dir/query.fa
+python scripts/expand_dedupe.py $dir/query.fa $dir/dupmap.txt $dir/.t
+mv .t $dir/query.fa
+
 bin/faSomeRecords -exclude $dir/concat_dedup.fa $dir/queries.txt $dir/ref.fa
 scripts/reestimate_backbone.sh $dir
 #
