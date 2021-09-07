@@ -1,0 +1,17 @@
+#Backbone species and query species in this dataset come from WoL dataset replicate 1.
+
+#You need to download backbone sequences using the following link:
+#
+#Make sure that after extracting the archive, "sequences" directory is located  under same directory as this readme file.
+
+scripts/gen-replicates.sh
+
+scripts/all_gene_trees.sh
+
+scripts/all_species_trees.sh $NUM_CORES
+
+scripts/prep-queries.sh
+
+scripts/query_align.sh
+
+scripts/place_jobs.sh
