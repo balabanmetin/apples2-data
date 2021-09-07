@@ -1,0 +1,37 @@
+# begin by running
+
+prerequisites:
+        -Linux, bash, and anaconda (miniconda).
+
+how to execute:
+Execute the commands below with the given order. A brief explanation
+of each command is given below itself.
+
+------------------------
+`scripts/create_backbone_alignment.sh`
+
+This will create concatenated backbone alignments
+
+(This is the first step!) You also need to download backbone alignments per gene using the following link:
+https://drive.google.com/file/d/10Nmt5_0CidSWOGrqxFlC_cqOArRI3o07/view?usp=sharing
+
+Make sure that after extracting the archive, "alignments" directory is located  under same directory as this readme file.
+
+------------------------
+`scripts/generate_replicates.sh`
+
+This will generate replicates (in this case, there is only one replicate).
+
+-------------------------
+`scripts/place_jobs.sh`
+
+This will create a list of jobs. Each line is a job that perform placements on
+a dataset with (10, 25, 50, 381)  marker genes using apples-2. The job will
+report running time as well as delta error for each query placement. The measurement
+will be written to data/<size>/result.csv
+Again, this can be locally run: `scripts/place_jobs.sh | bash`
+
+-------------------------
+`scripts/collect_results.sh`
+
+This scripts will create two csv files called `best_random_accuracy.csv` which reports the placement error for each query and `best_random_time_memory.csv` which reports running time and memory usage of each run. In `best_random_accuracy.csv` file, the fields are error, query genome, marker gene strategy, and number of marker genes in the backbone. In `best_random_time_memory.csv` the fields are time, memory, marker gene strategy, number of marker genes, and number of sites in the concatenated backbone.
