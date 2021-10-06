@@ -3,6 +3,8 @@
 
 This repository contains data used in "Fast and Accurate Distance-based Phylogenetic Placement using Divide and Conquer".
 
+[![DOI](https://zenodo.org/badge/199926171.svg)](https://zenodo.org/badge/latestdoi/199926171)
+
 `multigene` directory contains WoL based data sets and scripts used in this paper.`singlegene` directory contains RNAsim-VS data set and scripts. A README file with the installation and running instructions is included with each data set.
 
 Some of the data sets require downloading large archives. Use the following Google Drive link to access large datasets:
