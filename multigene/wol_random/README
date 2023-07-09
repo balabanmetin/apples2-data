@@ -13,7 +13,7 @@ of each command is given below itself.
 This will create concatenated backbone alignments
 
 (This is the first step!) You also need to download backbone alignments per gene using the following link:
-https://drive.google.com/file/d/10Nmt5_0CidSWOGrqxFlC_cqOArRI3o07/view?usp=sharing
+https://doi.org/doi:10.6076/D1M59N
 
 Make sure that after extracting the archive, "alignments" directory is located  under same directory as this readme file.
 
